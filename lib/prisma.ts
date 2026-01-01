@@ -1,21 +1,21 @@
-import { PrismaClient } from "./generated/prisma/client";
+import { PrismaClient } from "@/lib/generated/prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
+import {Pool}from "pg"
 import "server-only";
+const pool=new Pool({
+  connectionString:process.env.DATABASE_URL,
+})
+const adapter=new PrismaPg(pool)
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
 
-declare global {
-  // eslint-disable-next-line no-var, no-unused-vars
-  var cachedPrisma: PrismaClient;
-}
+export const prisma =
+  globalForPrisma.prisma ??
+  new PrismaClient({
+    adapter,
+  });
 
-export let prisma: PrismaClient;
-// The generated client type currently requires an options argument in TS.
-// Cast the constructor to allow no-arg instantiation without TS errors.
-const PrismaClientCtor = PrismaClient as unknown as { new (): PrismaClient };
-
-if (process.env.NODE_ENV === "production") {
-  prisma = new PrismaClientCtor();
-} else {
-  if (!global.cachedPrisma) {
-    global.cachedPrisma = new PrismaClientCtor();
-  }
-  prisma = global.cachedPrisma;
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = prisma;
 }
