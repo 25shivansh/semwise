@@ -1,4 +1,5 @@
 // next authentication configuration
+import "server-only"
 import { DefaultSession, NextAuthOptions, getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";

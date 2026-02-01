@@ -1,9 +1,10 @@
-'use-client'
+'use client'
 import React from 'react'
 import { Button } from './ui/button'
 import { signIn } from 'next-auth/react'
+type Props={};
 
-const SignInButton = () => {
+const SignInButton = (props:Props) => {
   return (
     <Button variant="ghost"
     onClick={()=>{
