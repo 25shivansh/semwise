@@ -15,12 +15,12 @@ const UserAccountNav=({user}:Props)=>{
             <DropdownMenuTrigger>
                 <UserAvatar user={user}/>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-                <div className="flex items-center justify-start gap-2 p-2">
-                    <div className="flex flex-col space-y-1 leading-none">
+            <DropdownMenuContent className="w-56">
+                <div className="flex items-center justify-start gap-2 p-3">
+                    <div className="flex flex-col space-y-1 leading-none min-w-0">
                         {user?.name && <p className="font-medium">{user.name}</p>}
                         {user?.email &&(
-                            <p className="w-[200px] truncate text-sm text-secondary-foreground">{user.email}</p>
+                            <p className="truncate text-sm text-secondary-foreground">{user.email}</p>
                         )}
 
                     </div>
@@ -29,9 +29,10 @@ const UserAccountNav=({user}:Props)=>{
                 
                 <DropdownMenuSeparator/>
                 <DropdownMenuItem 
-                onClick={() => signOut()} className="text-red-600 cursor-pointer"
+                onClick={() => signOut()} className="text-red-600 cursor-pointer flex items-center justify-start"
                 >
-                    Sign Out <LogOut className="ml-2 h-4 w-4"/>
+                    <span>Sign Out</span>
+                    <LogOut className="ml-2 h-4 w-4"/>
 
                 </DropdownMenuItem>
 
