@@ -3,6 +3,8 @@ import Link from 'next/link';
 import React from 'react'
 import SignInButton from './SignInButton';
 import { getAuthSession } from '@/lib/auth';
+import { User } from 'lucide-react';
+import UserAccountNav from './UserAccountNav';
 
 type Props={};
 
@@ -33,8 +35,9 @@ const Navbar =async (props:Props) => {
                 </>
             )}
             <div className='flex items-center '>
-                {session?.user? <p>Welcome {session.user.name}</p>:<SignInButton/>}
+                {session?.user? <p>Welcome {session.user.name} <UserAccountNav user={session.user} /></p>:<SignInButton/>}
             </div>
+            
             
         </div>
     </nav>
